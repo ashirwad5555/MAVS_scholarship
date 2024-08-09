@@ -26,9 +26,21 @@ export class Service {
     this.collections.forEach((col) => {
       this.db[col.name] = {
         create: (payload, permissions, id = ID.unique()) =>
-          this.databases.createDocument(col.dbId, col.id, id, payload, permissions),
+          this.databases.createDocument(
+            col.dbId,
+            col.id,
+            id,
+            payload,
+            permissions
+          ),
         update: (id, payload, permissions) =>
-          this.databases.updateDocument(col.dbId, col.id, id, payload, permissions),
+          this.databases.updateDocument(
+            col.dbId,
+            col.id,
+            id,
+            payload,
+            permissions
+          ),
         delete: (id) => this.databases.deleteDocument(col.dbId, col.id, id),
         list: (queries = []) =>
           this.databases.listDocuments(col.dbId, col.id, queries),

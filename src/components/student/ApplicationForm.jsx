@@ -1,48 +1,352 @@
 import React from "react";
 import { useState } from "react";
 import service from "../../appwrite/config";
+import conf from "../../conf/conf";
+import { v4 } from "uuid";
+import { ID } from "appwrite";
 
 const ApplicationForm = ({ setApplications }) => {
   const [activePage, setActivePage] = useState("newApplication");
 
-  const handleAdd = async (e) => {
-    e.preventDefault();
+  // const handleAdd = async (e) => {
+  //   e.preventDefault();
 
-    const formData = new FormData(e.target);
+  //   const formData = new FormData(e.target);
 
-    const payload = {
-      fullName: formData.get("fullName"),
-      fathersName: formData.get("fathersName"),
-      mothersName: formData.get("mothersName"),
-      birthDate: formData.get("birthDate"),
-      gender: formData.get("gender"),
-      fathersOccupation: formData.get("fathersOccupation"),
-      fathersIncome: formData.get("fathersIncome"),
-      communicationAddress: formData.get("communicationAddress"),
-      twelfthMarks: formData.get("12thMarks"),
-      firstYearMarks: formData.get("firstYearMarks"),
-      secondYearMarks: formData.get("secondYearMarks"),
-      thirdYearMarks: formData.get("thirdYearMarks"),
-      lastYearMarks: formData.get("lastYearMarks"),
-      collegeName: formData.get("collegeName"),
-      feesReceipt: formData.get("feesReceipt"),
-      beneficiaryDetails: formData.get("beneficiaryDetails"),
-      aadharCard: formData.get("aadharCard"),
-      rationCard: formData.get("rationCard"),
-      marksheets: formData.get("marksheets"),
-      incomeCertificate: formData.get("incomeCertificate"),
-      familyPhoto: formData.get("familyPhoto"),
-    };
+  //   const payload = {
+  // fullName: formData.get("fullName"),
+  // fathersName: formData.get("fathersName"),
+  // mothersName: formData.get("mothersName"),
+  // birthDate: formData.get("birthDate"),
+  // gender: formData.get("gender"),
+  // fathersOccupation: formData.get("fathersOccupation"),
+  // fathersIncome: formData.get("fathersIncome"),
+  // communicationAddress: formData.get("communicationAddress"),
+  // twelfthMarks: formData.get("12thMarks"),
+  // firstYearMarks: formData.get("firstYearMarks"),
+  // secondYearMarks: formData.get("secondYearMarks"),
+  // thirdYearMarks: formData.get("thirdYearMarks"),
+  // lastYearMarks: formData.get("lastYearMarks"),
+  // collegeName: formData.get("collegeName"),
+  // feesReceipt: formData.get("feesReceipt"),
+  // beneficiaryDetails: formData.get("beneficiaryDetails"),
+  // aadharCard: formData.get("aadharCard"),
+  // rationCard: formData.get("rationCard"),
+  // marksheets: formData.get("marksheets"),
+  // incomeCertificate: formData.get("incomeCertificate"),
+  // familyPhoto: formData.get("familyPhoto"),
+  //   };
 
-    try {
-      const response = await service.db.studentApplications.create(payload);
-      setApplications((prevState) => [response, ...prevState]);
+  //   try {
+  //     const response = await service.db.studentApplications.create(payload);
+  //     setApplications((prevState) => [response, ...prevState]);
 
-      e.target.reset();
-    } catch (error) {
-      console.error(error);
+  //     e.target.reset();
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+
+  // gemini code start here.
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    fathersName: "",
+    mothersName: "",
+    birthDate: "",
+    gender: "",
+    fathersOccupation: "",
+    fathersIncome: "",
+    communicationAddress: "",
+    twelfthMarks: "",
+    firstYearMarks: "",
+    secondYearMarks: "",
+    thirdYearMarks: "",
+    lastYearMarks: "",
+    collegeName: "",
+    feesReceipt: null,
+    beneficiaryDetails: "",
+    aadharCard: null,
+    rationCard: null,
+    marksheets: null,
+    incomeCertificate: null,
+    familyPhoto: null,
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    if (files && files.length > 0) {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
     }
   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("handleSubmit clicked");
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const {
+        aadharCard,
+        rationCard,
+        feesReceipt,
+        marksheets,
+        incomeCertificate,
+        familyPhoto,
+        ...data
+      } = formData;
+
+      console.log(data); // data without files
+      console.log(formData); // dadta with files
+
+      const response = await service.databases.createDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionIdStudentApplications,
+        ID.unique(),
+        // import.meta.env.VITE_APPWRITE_COLLECTION_STUDENTAPPLICATIONS_ID ||
+        //   "6687e6c40011b514f380",
+        data
+      );
+
+      const fileUploads = async () => {
+        // Function scope starts here
+        const promises = [];
+        const fileUrls = {}; // To store the file URLs
+
+        console.table([
+          aadharCard,
+          rationCard,
+          feesReceipt,
+          familyPhoto,
+          feesReceipt,
+          marksheets,
+        ]); //checking is files are stored in respective variables
+
+        console.log(formData.aadharCard instanceof File); // should log true
+        console.log(formData.aadharCard); // should log the File object
+
+        if (aadharCard) {
+          promises.push(
+            service.bucket
+              .createFile(
+                conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+                // aadharCard.name,
+                ID.unique(),
+                aadharCard
+              )
+              .then((fileResponse) => {
+                const fileId = fileResponse.$id;
+                const fileUrl = `${conf.appwriteEndpoint}/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
+
+                // Store the file URL in the fileUrls object
+                fileUrls[fieldName] = fileUrl;
+                console.log("file url stored in array");
+                service
+                  .databases()
+                  .updateDocument(
+                    conf.appwriteCollectionIdStudentApplications ||
+                      "6687e6c40011b514f380",
+                    response.id,
+                    { aadharCard: fileResponse.id }
+                  );
+              })
+          );
+        }
+        if (rationCard) {
+          promises.push(
+            service.bucket
+              .createFile(
+                conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+                // rationCard.name,
+                ID.unique(),
+                rationCard
+              )
+              .then((fileResponse) =>
+                service
+                  .databases()
+                  .updateDocument(
+                    conf.appwriteCollectionIdStudentApplications ||
+                      "6687e6c40011b514f380",
+                    response.id,
+                    { rationCardId: fileResponse.id }
+                  )
+              )
+          );
+        }
+        if (feesReceipt) {
+          promises.push(
+            service.bucket
+              .createFile(
+                conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+                // feesReceipt.name,
+                ID.unique(),
+                feesReceipt
+              )
+              .then((fileResponse) =>
+                service.databases().updateDocument(
+                  conf.appwriteCollectionIdStudentApplications ||
+                    "6687e6c40011b514f380",
+                  response.id, //checking
+                  { feesReceiptId: fileResponse.id }
+                )
+              )
+          );
+        }
+        if (marksheets) {
+          promises.push(
+            service.bucket
+              .createFile(
+                conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+                // marksheets.name,
+                ID.unique(),
+                marksheets
+              )
+              .then((fileResponse) =>
+                service
+                  .databases()
+                  .updateDocument(
+                    conf.appwriteCollectionIdStudentApplications ||
+                      "6687e6c40011b514f380",
+                    response.id,
+                    { marksheetsId: fileResponse.id }
+                  )
+              )
+          );
+        }
+        if (incomeCertificate) {
+          promises.push(
+            service.bucket
+              .createFile(
+                conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+                // incomeCertificate.name,
+                ID.unique(),
+                incomeCertificate
+              )
+              .then((fileResponse) =>
+                service
+                  .databases()
+                  .updateDocument(
+                    conf.appwriteCollectionIdStudentApplications ||
+                      "6687e6c40011b514f380",
+                    response.id,
+                    { incomeCertificateId: fileResponse.id }
+                  )
+              )
+          );
+        }
+        if (familyPhoto) {
+          promises.push(
+            service.bucket
+              .createFile(
+                conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+                // familyPhoto.name,
+                ID.unique(),
+                familyPhoto
+              )
+              .then((fileResponse) =>
+                service
+                  .databases()
+                  .updateDocument(
+                    conf.appwriteCollectionIdStudentApplications ||
+                      "6687e6c40011b514f380",
+                    response.id,
+                    { familyPhotoId: fileResponse.id }
+                  )
+              )
+          );
+        }
+        // ... add promises for other file uploads
+        await Promise.all(promises);
+      }; // Function scope ends here
+
+      await fileUploads();
+
+      console.log("Document created successfully");
+    } catch (error) {
+      console.log(error);
+      setError(error);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false); // Optional: Reset loading state even on error
+    }
+  };
+
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   console.log("handleSubmit clicked");
+
+  //   setIsLoading(true);
+  //   setError(null);
+
+  //   try {
+  //     const {
+  //       aadharCard,
+  //       rationCard,
+  //       feesReceipt,
+  //       marksheets,
+  //       incomeCertificate,
+  //       familyPhoto,
+  //       ...data
+  //     } = formData;
+
+  //     console.log(formData);
+
+  //     const response = await service.databases.createDocument(
+  //       conf.appwriteDatabaseId,
+  //       conf.appwriteCollectionIdStudentApplications,
+  //       ID.unique(),
+  //       data
+  //     );
+
+  //     const fileUploads = async () => {
+  //       const promises = [];
+  //       const fileUrls = {}; // To store the file URLs
+
+  //       const uploadFile = async (file, fieldName) => {
+  //         if (file) {
+  //           const fileResponse = await service.bucket.createFile(
+  //             conf.appwriteBucketId,
+  //             ID.unique(),
+  //             file
+  //           );
+  //           const fileId = fileResponse.$id;
+  //           fileUrls[
+  //             fieldName
+  //           ] = `${conf.appwriteEndpoint}/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`;
+  //           console.log(`File URL for ${fieldName}: ${fileUrls[fieldName]}`);
+  //           await service.databases.updateDocument(
+  //             conf.appwriteCollectionIdStudentApplications,
+  //             response.$id,
+  //             { [`${fieldName}Id`]: fileId }
+  //           );
+  //         }
+  //       };
+
+  //       await uploadFile(aadharCard, "aadharCard");
+  //       await uploadFile(rationCard, "rationCard");
+  //       await uploadFile(feesReceipt, "feesReceipt");
+  //       await uploadFile(marksheets, "marksheets");
+  //       await uploadFile(incomeCertificate, "incomeCertificate");
+  //       await uploadFile(familyPhoto, "familyPhoto");
+
+  //       await Promise.all(promises);
+  //     };
+
+  //     await fileUploads();
+
+  //     console.log("Document created successfully");
+  //   } catch (error) {
+  //     console.log(error);
+  //     setError(error);
+  //   } finally {
+  //     setIsLoading(false); // Optional: Reset loading state even on error
+  //   }
+  // };
 
   return (
     <div className="flex max-w-full mx-auto bg-green-200 p-8 rounded-lg shadow-lg ">
@@ -87,7 +391,7 @@ const ApplicationForm = ({ setApplications }) => {
         <form
           id="applicationForm"
           className="space-y-6 w-full mx-auto px-10"
-          onSubmit={handleAdd}
+          onSubmit={handleSubmit}
         >
           {/* Personal Information */}
           <fieldset className="p-4 border border-black rounded-md">
@@ -103,6 +407,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="fullName"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -118,6 +423,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="fathersName"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -133,6 +439,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="mothersName"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -145,6 +452,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="birthDate"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -156,6 +464,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="gender"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 >
                   <option value="">Select</option>
                   <option value="male">Male</option>
@@ -176,6 +485,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="fathersOccupation"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -191,6 +501,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="fathersIncome"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -205,6 +516,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="communicationAddress"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 ></textarea>
               </div>
             </div>
@@ -216,14 +528,15 @@ const ApplicationForm = ({ setApplications }) => {
             <div className="space-y-4">
               <div className="form-group">
                 <label htmlFor="12thMarks" className="block font-semibold mb-1">
-                  12th: Total Marks (In percentage)
+                  12th: Total Marks (In percentage - only numerical value)
                 </label>
                 <input
                   type="number"
-                  id="12thMarks"
-                  name="12thMarks"
+                  id="twelfthMarks"
+                  name="twelfthMarks"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -231,7 +544,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="firstYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  First Year: Total Marks (In percentage)
+                  First Year: Total Marks (In percentage/GCPA - only numerical
+                  value)
                 </label>
                 <input
                   type="number"
@@ -239,6 +553,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="firstYearMarks"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -246,7 +561,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="secondYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Second Year: Total Marks (In percentage)
+                  Second Year: Total Marks (In percentage/CGPA - only numerical
+                  value)
                 </label>
                 <input
                   type="number"
@@ -254,6 +570,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="secondYearMarks"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -261,7 +578,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="thirdYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Third Year: Total Marks (In percentage)
+                  Third Year: Total Marks (In percentage/CGPA - only numerical
+                  value)
                 </label>
                 <input
                   type="number"
@@ -269,6 +587,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="thirdYearMarks"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -276,7 +595,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="lastYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Last Year: Total Marks (In percentage)
+                  Last Year: Total Marks (In percentage/CGPA - only numerical
+                  value)
                 </label>
                 <input
                   type="number"
@@ -284,6 +604,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="lastYearMarks"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -299,6 +620,7 @@ const ApplicationForm = ({ setApplications }) => {
                   name="collegeName"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -321,6 +643,7 @@ const ApplicationForm = ({ setApplications }) => {
                 name="beneficiaryDetails"
                 className="w-full p-2 border rounded-md"
                 required
+                onChange={handleChange}
               ></textarea>
             </div>
           </fieldset>
@@ -338,10 +661,12 @@ const ApplicationForm = ({ setApplications }) => {
                 </label>
                 <input
                   type="file"
+                  accept=".pdf,application/pdf"
                   id="aadharCard"
                   name="aadharCard"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -353,10 +678,12 @@ const ApplicationForm = ({ setApplications }) => {
                 </label>
                 <input
                   type="file"
+                  accept=".pdf,application/pdf"
                   id="rationCard"
                   name="rationCard"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -364,14 +691,17 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="marksheets"
                   className="block font-semibold mb-1"
                 >
-                  Marksheets:
+                  Marksheets: make a single .pdf of 10th, 12th and other
+                  Entrance Exam marklists, CGPA(if available)
                 </label>
                 <input
                   type="file"
+                  accept=".pdf,application/pdf"
                   id="marksheets"
                   name="marksheets"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -383,10 +713,12 @@ const ApplicationForm = ({ setApplications }) => {
                 </label>
                 <input
                   type="file"
+                  accept=".pdf,application/pdf"
                   id="incomeCertificate"
                   name="incomeCertificate"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -398,10 +730,12 @@ const ApplicationForm = ({ setApplications }) => {
                 </label>
                 <input
                   type="file"
+                  accept=".pdf,application/pdf"
                   id="familyPhoto"
                   name="familyPhoto"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -413,10 +747,12 @@ const ApplicationForm = ({ setApplications }) => {
                 </label>
                 <input
                   type="file"
+                  accept=".pdf,application/pdf"
                   id="feesReceipt"
                   name="feesReceipt"
                   className="w-full p-2 border rounded-md"
                   required
+                  onChange={handleChange}
                 />
               </div>
             </div>
