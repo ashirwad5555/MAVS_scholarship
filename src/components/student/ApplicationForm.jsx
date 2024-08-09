@@ -127,139 +127,359 @@ const ApplicationForm = ({ setApplications }) => {
           marksheets,
         ]); //checking is files are stored in respective variables
 
-        console.log(formData.aadharCard instanceof File); // should log true
-        console.log(formData.aadharCard); // should log the File object
+        console.log(formData.marksheets instanceof File); // should log true
+        console.log(formData.marksheets); // should log the File object
 
         if (aadharCard) {
           promises.push(
             service.bucket
               .createFile(
                 conf.appwriteBucketId || "667ad1fa002e2a54fe23",
-                // aadharCard.name,
                 ID.unique(),
                 aadharCard
               )
               .then((fileResponse) => {
                 const fileId = fileResponse.$id;
-                const fileUrl = `${conf.appwriteEndpoint}/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
+                const fileUrl = `https://cloud.appwrite.io/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
 
                 // Store the file URL in the fileUrls object
-                fileUrls[fieldName] = fileUrl;
-                console.log("file url stored in array");
-                service
-                  .databases()
+                fileUrls[aadharCard] = fileUrl; //changed fieldName to aadharCard
+                console.log("file url stored in array"); //databases() "()"  removed
+                service.databases
                   .updateDocument(
+                    conf.appwriteDatabaseId,
                     conf.appwriteCollectionIdStudentApplications ||
                       "6687e6c40011b514f380",
-                    response.id,
-                    { aadharCard: fileResponse.id }
-                  );
+                    response.$id,
+                    { aadharCard: fileUrl }
+                  ) //added one more .then() handler
+
+                  .then((updateResponse) => {
+                    console.log(
+                      "Document updated with file URL:",
+                      updateResponse
+                    );
+                    console.table([fileId, fileUrl]);
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error during file upload or document update:",
+                      error
+                    );
+                  });
               })
           );
         }
+
         if (rationCard) {
           promises.push(
             service.bucket
               .createFile(
                 conf.appwriteBucketId || "667ad1fa002e2a54fe23",
-                // rationCard.name,
                 ID.unique(),
                 rationCard
               )
-              .then((fileResponse) =>
-                service
-                  .databases()
+              .then((fileResponse) => {
+                const fileId = fileResponse.$id;
+                let fileUrl = `https://cloud.appwrite.io/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
+
+                // Store the file URL in the fileUrls object
+                fileUrls["rationCard"] = fileUrl; //changed fieldName to rationCard
+                console.log("file url stored in array"); //databases() "()"  removed
+                service.databases
                   .updateDocument(
+                    conf.appwriteDatabaseId,
                     conf.appwriteCollectionIdStudentApplications ||
                       "6687e6c40011b514f380",
-                    response.id,
-                    { rationCardId: fileResponse.id }
-                  )
-              )
+                    response.$id,
+                    { rationCard: fileUrl }
+                  ) //added one more .then() handler
+
+                  .then((updateResponse) => {
+                    console.log(
+                      "Document updated with file URL:",
+                      updateResponse
+                    );
+                    console.table([fileId, fileUrl]);
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error during file upload or document update:",
+                      error
+                    );
+                  });
+              })
           );
         }
+
         if (feesReceipt) {
           promises.push(
             service.bucket
               .createFile(
                 conf.appwriteBucketId || "667ad1fa002e2a54fe23",
-                // feesReceipt.name,
                 ID.unique(),
                 feesReceipt
               )
-              .then((fileResponse) =>
-                service.databases().updateDocument(
-                  conf.appwriteCollectionIdStudentApplications ||
-                    "6687e6c40011b514f380",
-                  response.id, //checking
-                  { feesReceiptId: fileResponse.id }
-                )
-              )
+              .then((fileResponse) => {
+                const fileId = fileResponse.$id;
+                const fileUrl = `https://cloud.appwrite.io/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
+
+                // Store the file URL in the fileUrls object
+                fileUrls[feesReceipt] = fileUrl; //changed fieldName to feesReceipt
+                console.log("file url stored in array"); //databases() "()"  removed
+                service.databases
+                  .updateDocument(
+                    conf.appwriteDatabaseId,
+                    conf.appwriteCollectionIdStudentApplications ||
+                      "6687e6c40011b514f380",
+                    response.$id,
+                    { feesReceipt: fileUrl }
+                  ) //added one more .then() handler
+
+                  .then((updateResponse) => {
+                    console.log(
+                      "Document updated with file URL:",
+                      updateResponse
+                    );
+                    console.table([fileId, fileUrl]);
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error during file upload or document update:",
+                      error
+                    );
+                  });
+              })
           );
         }
+
         if (marksheets) {
           promises.push(
             service.bucket
               .createFile(
                 conf.appwriteBucketId || "667ad1fa002e2a54fe23",
-                // marksheets.name,
                 ID.unique(),
                 marksheets
               )
-              .then((fileResponse) =>
-                service
-                  .databases()
+              .then((fileResponse) => {
+                const fileId = fileResponse.$id;
+                const fileUrl = `https://cloud.appwrite.io/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
+
+                // Store the file URL in the fileUrls object
+                fileUrls["marksheets"] = fileUrl; //changed fieldName to marksheets
+                console.log("file url stored in array"); //databases() "()"  removed
+                service.databases
                   .updateDocument(
+                    conf.appwriteDatabaseId,
                     conf.appwriteCollectionIdStudentApplications ||
                       "6687e6c40011b514f380",
-                    response.id,
-                    { marksheetsId: fileResponse.id }
-                  )
-              )
+                    response.$id,
+                    { marksheets: fileUrl }
+                  ) //added one more .then() handler
+
+                  .then((updateResponse) => {
+                    console.log(
+                      "Document updated with file URL:",
+                      updateResponse
+                    );
+                    console.table([fileId, fileUrl]);
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error during file upload or document update:",
+                      error
+                    );
+                  });
+              })
           );
         }
+
         if (incomeCertificate) {
           promises.push(
             service.bucket
               .createFile(
                 conf.appwriteBucketId || "667ad1fa002e2a54fe23",
-                // incomeCertificate.name,
                 ID.unique(),
                 incomeCertificate
               )
-              .then((fileResponse) =>
-                service
-                  .databases()
+              .then((fileResponse) => {
+                const fileId = fileResponse.$id;
+                const fileUrl = `https://cloud.appwrite.io/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
+
+                // Store the file URL in the fileUrls object
+                fileUrls["incomeCertificate"] = fileUrl; //changed fieldName to incomeCertificate
+                console.log("file url stored in array"); //databases() "()"  removed
+                service.databases
                   .updateDocument(
+                    conf.appwriteDatabaseId,
                     conf.appwriteCollectionIdStudentApplications ||
                       "6687e6c40011b514f380",
-                    response.id,
-                    { incomeCertificateId: fileResponse.id }
-                  )
-              )
+                    response.$id,
+                    { incomeCertificate: fileUrl }
+                  ) //added one more .then() handler
+
+                  .then((updateResponse) => {
+                    console.log(
+                      "Document updated with file URL:",
+                      updateResponse
+                    );
+                    console.table([fileId, fileUrl]);
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error during file upload or document update:",
+                      error
+                    );
+                  });
+              })
           );
         }
+
         if (familyPhoto) {
           promises.push(
             service.bucket
               .createFile(
                 conf.appwriteBucketId || "667ad1fa002e2a54fe23",
-                // familyPhoto.name,
                 ID.unique(),
                 familyPhoto
               )
-              .then((fileResponse) =>
-                service
-                  .databases()
+              .then((fileResponse) => {
+                const fileId = fileResponse.$id;
+                const fileUrl = `https://cloud.appwrite.io/v1/storage/buckets/${conf.appwriteBucketId}/files/${fileId}/view?project=${conf.appwriteProjectId}`; // Construct the file URL
+
+                // Store the file URL in the fileUrls object
+                fileUrls["familyPhoto"] = fileUrl; //changed fieldName to familyPhoto
+                console.log("file url stored in array"); //databases() "()"  removed
+                service.databases
                   .updateDocument(
+                    conf.appwriteDatabaseId,
                     conf.appwriteCollectionIdStudentApplications ||
                       "6687e6c40011b514f380",
-                    response.id,
-                    { familyPhotoId: fileResponse.id }
-                  )
-              )
+                    response.$id,
+                    { familyPhoto: fileUrl }
+                  ) //added one more .then() handler
+
+                  .then((updateResponse) => {
+                    console.log(
+                      "Document updated with file URL:",
+                      updateResponse
+                    );
+                    console.table([fileId, fileUrl]);
+                  })
+                  .catch((error) => {
+                    console.error(
+                      "Error during file upload or document update:",
+                      error
+                    );
+                  });
+              })
           );
         }
+
+        // below 5 upload document code is to be commented out soon
+        // if (rationCard) {
+        //   promises.push(
+        //     service.bucket
+        //       .createFile(
+        //         conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+        //         // rationCard.name,
+        //         ID.unique(),
+        //         rationCard
+        //       )
+        //       .then((fileResponse) =>
+        //         service
+        //           .databases()
+        //           .updateDocument(
+        //             conf.appwriteCollectionIdStudentApplications ||
+        //               "6687e6c40011b514f380",
+        //             response.id,
+        //             { rationCardId: fileResponse.id }
+        //           )
+        //       )
+        //   );
+        // }
+        // if (feesReceipt) {
+        //   promises.push(
+        //     service.bucket
+        //       .createFile(
+        //         conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+        //         // feesReceipt.name,
+        //         ID.unique(),
+        //         feesReceipt
+        //       )
+        //       .then((fileResponse) =>
+        //         service.databases().updateDocument(
+        //           conf.appwriteCollectionIdStudentApplications ||
+        //             "6687e6c40011b514f380",
+        //           response.id, //checking
+        //           { feesReceiptId: fileResponse.id }
+        //         )
+        //       )
+        //   );
+        // }
+        // if (marksheets) {
+        //   promises.push(
+        //     service.bucket
+        //       .createFile(
+        //         conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+        //         // marksheets.name,
+        //         ID.unique(),
+        //         marksheets
+        //       )
+        //       .then((fileResponse) =>
+        //         service
+        //           .databases()
+        //           .updateDocument(
+        //             conf.appwriteCollectionIdStudentApplications ||
+        //               "6687e6c40011b514f380",
+        //             response.id,
+        //             { marksheetsId: fileResponse.id }
+        //           )
+        //       )
+        //   );
+        // }
+        // if (incomeCertificate) {
+        //   promises.push(
+        //     service.bucket
+        //       .createFile(
+        //         conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+        //         // incomeCertificate.name,
+        //         ID.unique(),
+        //         incomeCertificate
+        //       )
+        //       .then((fileResponse) =>
+        //         service
+        //           .databases()
+        //           .updateDocument(
+        //             conf.appwriteCollectionIdStudentApplications ||
+        //               "6687e6c40011b514f380",
+        //             response.id,
+        //             { incomeCertificateId: fileResponse.id }
+        //           )
+        //       )
+        //   );
+        // }
+        // if (familyPhoto) {
+        //   promises.push(
+        //     service.bucket
+        //       .createFile(
+        //         conf.appwriteBucketId || "667ad1fa002e2a54fe23",
+        //         // familyPhoto.name,
+        //         ID.unique(),
+        //         familyPhoto
+        //       )
+        //       .then((fileResponse) =>
+        //         service
+        //           .databases()
+        //           .updateDocument(
+        //             conf.appwriteCollectionIdStudentApplications ||
+        //               "6687e6c40011b514f380",
+        //             response.id,
+        //             { familyPhotoId: fileResponse.id }
+        //           )
+        //       )
+        //   );
+        // }
         // ... add promises for other file uploads
         await Promise.all(promises);
       }; // Function scope ends here
