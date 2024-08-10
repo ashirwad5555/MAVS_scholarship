@@ -42,28 +42,39 @@ function ApplicationDetailsModal({ onClose, application }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-md relative max-w-lg w-full">
+      <div
+        className="bg-white p-6 rounded-lg shadow-md relative"
+        style={{
+          width: "85%", // Custom width
+          maxWidth: "800px", // Max width
+          height: "90%", // Increased custom height
+          maxHeight: "95%", // Increased max height
+        }}
+      >
         <h2 className="text-xl font-semibold mb-4">Application Details</h2>
-        <div className="overflow-y-auto max-h-96">
+        <div className="overflow-y-auto max-h-full">
           {fieldsToDisplay.map((field) => (
             <div key={field} className="mb-2 flex justify-between items-center">
-              <p>
-                <strong>{field}:</strong>
-                {fieldsWithViewButton.includes(field) ? (
-                  // Display only the "View" button
+              <div className="flex-1 text-left">
+                <p className="text-gray-700 font-medium">
+                  <strong className="text-xl">{field}:</strong>
+                  {fieldsWithViewButton.includes(field) ? null : (
+                    <span> {application[field]}</span>
+                  )}
+                </p>
+              </div>
+              {fieldsWithViewButton.includes(field) && (
+                <div className="ml-4">
                   <a
                     href={application[field]}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                   >
                     View
                   </a>
-                ) : (
-                  // Display the content for other fields
-                  <span> {application[field]}</span>
-                )}
-              </p>
+                </div>
+              )}
             </div>
           ))}
         </div>

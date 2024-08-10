@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
+  // const userRole = useSelector((state) => state.auth.role); // Assuming you store the role in Redux state
   const navigate = useNavigate();
+  // console.log("Testing" + userRole);
+  const userMail = useSelector((state) => state.auth.userEmail);
+  console.log("your mail is " + userMail);
 
   const navItems = [
     {
@@ -44,6 +48,7 @@ function Header() {
       name: "Past Applications",
       slug: "/pastApplications",
       active: authStatus,
+      // && userRole === "admin", // Only admin can see this,
     },
     {
       name: "Funds Received",
