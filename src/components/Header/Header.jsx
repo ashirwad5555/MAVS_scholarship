@@ -3,14 +3,32 @@ import { Container, Logo, LogoutBtn } from "../index";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import authService from "../../appwrite/auth";
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status);
   // const userRole = useSelector((state) => state.auth.role); // Assuming you store the role in Redux state
   const navigate = useNavigate();
   // console.log("Testing" + userRole);
-  const userMail = useSelector((state) => state.auth.userEmail);
-  console.log("your mail is " + userMail);
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const fetchUserEmail = async () => {
+      try {
+        const user = await authService.getCurrentUser();
+        if (user) {
+          setUserEmail(user.email); // Extract and set the email
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+
+    fetchUserEmail();
+  }, []);
+
+  console.log(" email of this user is " + userEmail);
 
   const navItems = [
     {
@@ -47,8 +65,8 @@ function Header() {
     {
       name: "Past Applications",
       slug: "/pastApplications",
-      active: authStatus,
-      // && userRole === "admin", // Only admin can see this,
+      active:
+        authStatus && `${userEmail}` === "mavs.vidyaadhar.scholar@gmail.com", // Only admin can see this,
     },
     {
       name: "Funds Received",
