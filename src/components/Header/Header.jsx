@@ -42,6 +42,11 @@ function Header() {
       active: true,
     },
     {
+      name: "FAQ",
+      slug: "/faq",
+      active: true,
+    },
+    {
       name: "Login",
       slug: "/login",
       active: !authStatus,

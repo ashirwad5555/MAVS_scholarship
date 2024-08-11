@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import appwriteService from "../appwrite/config";
 import { Container, PostCard } from "../components";
 import { Link } from "react-router-dom";
-import {Benificeries} from "../components/index"
+import { Benificeries } from "../components/index";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -22,12 +22,15 @@ function Home() {
           <div className="w-full md:w-1/2 p-4">
             <div className="text-left">
               <h2 className="text-4xl font-bold mb-4">
-                Welcome to Our Scholarship Program
+                Welcome to MAVS Vidya Adhar financial Assistance programm.
               </h2>
+              <br />
               <p className="text-xl">
-                We believe in empowering students to achieve their dreams. Apply
-                for our scholarship and get the support you need to excel in
-                your studies and career.
+                Education is the passport to the future, for tomorrow belongs to
+                those who prepare for it today.
+                <br />
+                Education is part of the foundation of all progress and growth,
+                both as an individual and as a society.
               </p>
               <Link
                 to="/login"
@@ -46,10 +49,8 @@ function Home() {
           </div>
         </div>
 
-        <Benificeries/>
+        <Benificeries />
       </>
-
-     
     );
   }
   return (

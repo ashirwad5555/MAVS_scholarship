@@ -19,6 +19,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 import NewApplication from "./pages/NewApplication.jsx";
 import PastApplications from "./components/student/PastApplications.jsx";
 import FundsReceived from "./components/student/FundsReceived.jsx";
+import FAQ from "./pages/FAQ.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/about",
         element: <AboutPage />,
+      },
+      {
+        path: "/faq",
+        element: <FAQ />,
       },
       {
         path: "/login",
