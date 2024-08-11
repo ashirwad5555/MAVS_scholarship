@@ -4,6 +4,8 @@ import service from "../../appwrite/config";
 import conf from "../../conf/conf";
 import { v4 } from "uuid";
 import { ID } from "appwrite";
+import { useNavigate } from "react-router-dom";
+import Popup from "../Popup";
 
 const ApplicationForm = ({ setApplications }) => {
   const [activePage, setActivePage] = useState("newApplication");
@@ -73,6 +75,8 @@ const ApplicationForm = ({ setApplications }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -487,6 +491,7 @@ const ApplicationForm = ({ setApplications }) => {
       await fileUploads();
 
       console.log("Document created successfully");
+      setShowPopup(true); // Show the popup on successful submission
     } catch (error) {
       console.log(error);
       setError(error);
@@ -494,6 +499,11 @@ const ApplicationForm = ({ setApplications }) => {
     } finally {
       setIsLoading(false); // Optional: Reset loading state even on error
     }
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+    navigate("/"); // Redirect to the home screen
   };
 
   // const handleSubmit = async (event) => {
@@ -985,6 +995,12 @@ const ApplicationForm = ({ setApplications }) => {
             Submit
           </button>
         </form>
+        {showPopup && (
+          <Popup
+            message="Application submitted successfully!"
+            onClose={handlePopupClose}
+          />
+        )}
       </main>
     </div>
   );

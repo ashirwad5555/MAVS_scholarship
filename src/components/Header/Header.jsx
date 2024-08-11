@@ -60,7 +60,7 @@ function Header() {
     {
       name: "All Posts",
       slug: "/all-posts",
-      active: authStatus,
+      active: false,
     },
     {
       name: "Add Application",
@@ -76,7 +76,8 @@ function Header() {
     {
       name: "Funds Received",
       slug: "/fundsReceived",
-      active: authStatus,
+      active:
+        authStatus && `${userEmail}` !== "mavs.vidyaadhar.scholar@gmail.com", //only students can see
     },
   ];
 

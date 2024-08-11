@@ -38,21 +38,32 @@ function PastApplications() {
   };
 
   return (
-    <div className="container mx-auto mt-8">
-      <h1 className="text-3xl font-bold text-center mb-6">Past Applications</h1>
+    <div className="container mx-auto mt-12 px-4 relative">
+      <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
+        Past Applications
+      </h1>
+
+      {/* Total applications count */}
+      <div className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-full shadow-md">
+        Total Applications: {applications.length}
+      </div>
 
       {/* Scrollable container for the list of applications */}
-      <div className="overflow-y-auto max-h-96">
-        {" "}
-        {/* max-h-96 sets a maximum height of 384px */}
-        <ul className="space-y-4">
+      <div className="overflow-y-auto max-h-[500px] mt-10">
+        <ul className="space-y-6">
           {applications.map((application) => (
             <li
               key={application.$id}
-              className="bg-white p-4 rounded-lg shadow-md border border-gray-200 cursor-pointer"
+              className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-6 rounded-lg shadow-lg border border-transparent hover:border-indigo-300 cursor-pointer transition-all duration-300"
               onClick={() => handleOpenModal(application)}
             >
-              <h2 className="text-xl font-semibold">{application.fullName}</h2>
+              <h2 className="text-2xl font-semibold text-white">
+                {application.fullName}
+              </h2>
+              <p className="mt-2 text-white text-sm">
+                Submitted on{" "}
+                {new Date(application.$createdAt).toLocaleDateString()}
+              </p>
             </li>
           ))}
         </ul>
