@@ -581,7 +581,7 @@ const ApplicationForm = ({ setApplications }) => {
   return (
     <div className="flex max-w-full mx-auto bg-green-200 p-8 rounded-lg shadow-lg ">
       {/* aside */}
-      <aside className="w-64 bg-white shadow-lg rounded-xl">
+      <aside className=" hidden lg:block w-64 bg-white shadow-lg rounded-xl">
         <div className="p-4">
           <h2 className="text-2xl font-bold mb-4">Options</h2>
           <ul>
@@ -615,7 +615,7 @@ const ApplicationForm = ({ setApplications }) => {
 
       {/* main body of application form */}
       <main className="w-full">
-        <h1 className="text-center text-2xl font-bold mb-6">
+        <h1 className="text-center text-2xl font-bold mb-6 break-words">
           New Application Form
         </h1>
         <form
