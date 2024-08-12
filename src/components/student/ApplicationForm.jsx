@@ -9,6 +9,7 @@ import Popup from "../Popup";
 
 const ApplicationForm = ({ setApplications }) => {
   const [activePage, setActivePage] = useState("newApplication");
+  const [isSubmitting, setIsSubmitting] = useState(false); //added while testing
 
   // const handleAdd = async (e) => {
   //   e.preventDefault();
@@ -90,6 +91,9 @@ const ApplicationForm = ({ setApplications }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("handleSubmit clicked");
+
+    // Disable the submit button
+    setIsSubmitting(true); //added while testing
 
     setIsLoading(true);
     setError(null);
@@ -492,10 +496,15 @@ const ApplicationForm = ({ setApplications }) => {
 
       console.log("Document created successfully");
       setShowPopup(true); // Show the popup on successful submission
+
+      // Re-enable the button after a successful upload
+      setIsSubmitting(false); //added while testing
     } catch (error) {
       console.log(error);
       setError(error);
       setIsLoading(false);
+      // If there's an error, re-enable the button
+      setIsSubmitting(false);
     } finally {
       setIsLoading(false); // Optional: Reset loading state even on error
     }
@@ -866,7 +875,7 @@ const ApplicationForm = ({ setApplications }) => {
                 htmlFor="beneficiaryDetails"
                 className="block font-semibold mb-1"
               >
-                Year wise amount:
+                Year wise Beneficiary:
               </label>
               <textarea
                 id="beneficiaryDetails"
@@ -990,9 +999,10 @@ const ApplicationForm = ({ setApplications }) => {
 
           <button
             type="submit"
+            disabled={isSubmitting} //added while testing
             className="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
           >
-            Submit
+            {isSubmitting ? "wait...." : "Submit"}
           </button>
         </form>
         {showPopup && (

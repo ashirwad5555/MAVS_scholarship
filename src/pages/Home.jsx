@@ -3,9 +3,12 @@ import appwriteService from "../appwrite/config";
 import { Container, PostCard } from "../components";
 import { Link } from "react-router-dom";
 import { Benificeries } from "../components/index";
+import { useSelector } from "react-redux";
+import authService from "../appwrite/auth";
 
 function Home() {
   const [posts, setPosts] = useState([]);
+  const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
     appwriteService.getPosts().then((posts) => {
@@ -34,7 +37,7 @@ function Home() {
                 both as an individual and as a society.
               </p>
               <Link
-                to="/login"
+                to={authStatus ? "/add-post" : "/login"}
                 className="cta-button inline-block bg-blue-500 text-white font-semibold my-4 py-2 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300"
               >
                 Apply here

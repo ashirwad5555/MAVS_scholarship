@@ -136,7 +136,16 @@ function Header() {
               isOpen ? "block" : "hidden"
             }`}
           >
-            <div className="flex flex-col p-4">
+            <div className="flex justify-end p-4 mr-2">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="text-2xl p-2 focus:outline-none"
+              >
+                <XMarkIcon className="h-6 w-6" />
+              </button>
+            </div>
+
+            <div className="flex flex-col p-4 text-2xl ">
               {navItems.map((item) =>
                 item.active ? (
                   <button
@@ -152,15 +161,18 @@ function Header() {
                 ) : null
               )}
               {authStatus && (
-                <button
-                  onClick={() => {
-                    // Add your logout functionality here
-                    setIsOpen(false); // Close menu after logout
-                  }}
-                  className="px-4 py-2 text-left"
-                >
-                  Logout
-                </button>
+                // <button
+                //   // onClick={() => {
+                //   //   // Add your logout functionality here
+                //   //   setIsOpen(false); // Close menu after logout
+                //   // }}
+                //   // className="px-4 py-2 text-left"
+                // >
+
+                // </button>
+                <div className="text-left bg-red-200 rounded-xl mr-auto">
+                  <LogoutBtn />
+                </div>
               )}
             </div>
           </div>
