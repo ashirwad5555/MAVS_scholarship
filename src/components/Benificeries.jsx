@@ -1,4 +1,7 @@
-import React from 'react'
+import React from "react";
+import img1 from "../assets/student1.jpg";
+import img2 from "../assets/student2.jpg";
+import img3 from "../assets/student3.jpg";
 
 function Benificeries() {
   return (
@@ -9,7 +12,7 @@ function Benificeries() {
       <div className="flex flex-wrap justify-center gap-8">
         <div className="card bg-white shadow-lg rounded-lg overflow-hidden w-80">
           <img
-            src="src/assets/student1.jpg"
+            src={img1}
             alt="Student 1"
             className="w-full h-48 object-cover"
           />
@@ -23,7 +26,7 @@ function Benificeries() {
         </div>
         <div className="card bg-white shadow-lg rounded-lg overflow-hidden w-80">
           <img
-            src="src/assets/student2.jpg"
+            src={img2}
             alt="Student 2"
             className="w-full h-48 object-cover"
           />
@@ -36,7 +39,7 @@ function Benificeries() {
         </div>
         <div className="card bg-white shadow-lg rounded-lg overflow-hidden w-80">
           <img
-            src="src/assets/student3.jpg"
+            src={img3}
             alt="Student 3"
             className="w-full h-48 object-cover"
           />
