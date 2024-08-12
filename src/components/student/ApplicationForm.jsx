@@ -767,7 +767,8 @@ const ApplicationForm = ({ setApplications }) => {
             <div className="space-y-4">
               <div className="form-group">
                 <label htmlFor="12thMarks" className="block font-semibold mb-1">
-                  12th: Total Marks (In percentage - only numerical value)
+                  12th: Total Marks (In ...% - only Integer value) "Enter 0 if
+                  not available"
                 </label>
                 <input
                   type="number"
@@ -783,8 +784,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="firstYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  First Year: Total Marks (In percentage/GCPA - only numerical
-                  value)
+                  First Year: Total Marks (In ...% / GCPA - only Integer value)
+                  "Enter 0 if not available"
                 </label>
                 <input
                   type="number"
@@ -800,8 +801,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="secondYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Second Year: Total Marks (In percentage/CGPA - only numerical
-                  value)
+                  Second Year: Total Marks (In ...% / CGPA - only Integer value)
+                  "Enter 0 if not available"
                 </label>
                 <input
                   type="number"
@@ -817,8 +818,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="thirdYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Third Year: Total Marks (In percentage/CGPA - only numerical
-                  value)
+                  Third Year: Total Marks (In ...% / CGPA - only Integer value)
+                  "Enter 0 if not available"
                 </label>
                 <input
                   type="number"
@@ -834,8 +835,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="lastYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Last Year: Total Marks (In percentage/CGPA - only numerical
-                  value)
+                  Last Year: Total Marks (In ...% / CGPA - only numerical value)
+                  "Enter 0 if not available"
                 </label>
                 <input
                   type="number"
@@ -875,7 +876,7 @@ const ApplicationForm = ({ setApplications }) => {
                 htmlFor="beneficiaryDetails"
                 className="block font-semibold mb-1"
               >
-                Year wise Beneficiary:
+                Year wise Beneficiary: (Enter "none" if not available)
               </label>
               <textarea
                 id="beneficiaryDetails"
