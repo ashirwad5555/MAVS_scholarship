@@ -771,7 +771,7 @@ const ApplicationForm = ({ setApplications }) => {
                   not available"
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="twelfthMarks"
                   name="twelfthMarks"
                   className="w-full p-2 border rounded-md"
@@ -788,11 +788,10 @@ const ApplicationForm = ({ setApplications }) => {
                   "Enter 0 if not available"
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="firstYearMarks"
                   name="firstYearMarks"
                   className="w-full p-2 border rounded-md"
-                  required
                   onChange={handleChange}
                 />
               </div>
@@ -805,11 +804,10 @@ const ApplicationForm = ({ setApplications }) => {
                   "Enter 0 if not available"
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="secondYearMarks"
                   name="secondYearMarks"
                   className="w-full p-2 border rounded-md"
-                  required
                   onChange={handleChange}
                 />
               </div>
@@ -822,11 +820,10 @@ const ApplicationForm = ({ setApplications }) => {
                   "Enter 0 if not available"
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="thirdYearMarks"
                   name="thirdYearMarks"
                   className="w-full p-2 border rounded-md"
-                  required
                   onChange={handleChange}
                 />
               </div>
@@ -839,11 +836,10 @@ const ApplicationForm = ({ setApplications }) => {
                   "Enter 0 if not available"
                 </label>
                 <input
-                  type="number"
+                  type="text"
                   id="lastYearMarks"
                   name="lastYearMarks"
                   className="w-full p-2 border rounded-md"
-                  required
                   onChange={handleChange}
                 />
               </div>
@@ -852,7 +848,7 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="collegeName"
                   className="block font-semibold mb-1"
                 >
-                  College Name:
+                  Your alloted College Name:
                 </label>
                 <input
                   type="text"
@@ -869,14 +865,14 @@ const ApplicationForm = ({ setApplications }) => {
           {/* Past Beneficiary Details */}
           <fieldset className="p-4 border border-black rounded-md">
             <legend className="px-2 font-semibold">
-              Past Beneficiary Details
+              Have you got benifit from MAVS before ?
             </legend>
             <div className="form-group">
               <label
                 htmlFor="beneficiaryDetails"
                 className="block font-semibold mb-1"
               >
-                Year wise Beneficiary: (Enter "none" if not available)
+                Enter details if you have. (Enter "none" if not available)
               </label>
               <textarea
                 id="beneficiaryDetails"
