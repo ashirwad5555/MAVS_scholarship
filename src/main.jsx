@@ -20,6 +20,7 @@ import NewApplication from "./pages/NewApplication.jsx";
 import PastApplications from "./components/student/PastApplications.jsx";
 import FundsReceived from "./components/student/FundsReceived.jsx";
 import FAQ from "./pages/FAQ.jsx";
+import ContactUs from "./components/ContactUs.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/faq",
         element: <FAQ />,
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
       },
       {
         path: "/login",

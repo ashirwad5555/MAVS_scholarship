@@ -86,7 +86,7 @@ function About() {
           </div>
         </div>
 
-        <div className="bg-white p-8 mx-12 rounded-lg shadow-lg mb-12">
+        {/* <div className="bg-white p-8 mx-12 rounded-lg shadow-lg mb-12">
           <h2 className="text-3xl font-semibold mb-4">
             Meet Our Committee Members
           </h2>
@@ -125,7 +125,7 @@ function About() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="bg-white p-8 mx-12 rounded-lg shadow-lg">
           <h2 className="text-3xl font-semibold mb-4">Our Story</h2>

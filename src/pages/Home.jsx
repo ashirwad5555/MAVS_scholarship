@@ -53,7 +53,7 @@ function Home() {
           </div>
         </div>
 
-        <Benificeries />
+        {/* <Benificeries />  //removed on demand */}
       </>
     );
   }

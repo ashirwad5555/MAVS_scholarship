@@ -49,6 +49,11 @@ function Header() {
       active: true,
     },
     {
+      name: "Contact Us",
+      slug: "/contact",
+      active: true,
+    },
+    {
       name: "Login",
       slug: "/login",
       active: !authStatus,
