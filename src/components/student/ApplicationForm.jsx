@@ -837,7 +837,7 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="firstYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  First Year: Total Marks (In ...% / GCPA - only Integer value)
+                  1st Year: Total Marks (In ...% / GCPA - only Integer value)
                   "Enter 0 if not available"
                 </label>
                 <input
@@ -853,7 +853,7 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="secondYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Second Year: Total Marks (In ...% / CGPA - only Integer value)
+                  2nd Year: Total Marks (In ...% / CGPA - only Integer value)
                   "Enter 0 if not available"
                 </label>
                 <input
@@ -869,7 +869,7 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="thirdYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Third Year: Total Marks (In ...% / CGPA - only Integer value)
+                  3rd Year: Total Marks (In ...% / CGPA - only Integer value)
                   "Enter 0 if not available"
                 </label>
                 <input
@@ -885,8 +885,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="lastYearMarks"
                   className="block font-semibold mb-1"
                 >
-                  Last Year: Total Marks (In ...% / CGPA - only numerical value)
-                  "Enter 0 if not available"
+                  Final Year: Total Marks (In ...% / CGPA - only numerical
+                  value) "Enter 0 if not available"
                 </label>
                 <input
                   type="text"
@@ -903,7 +903,8 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="entrance_exam"
                   className="block font-semibold mb-1"
                 >
-                  Name of Entrance Exam you given:
+                  Name of Entrance Exam you given: (along with the Date of
+                  appearing for Exam - DD/MM/YYYY ) eg. MHT-CET march 2024
                 </label>
                 <input
                   type="text"
@@ -994,7 +995,9 @@ const ApplicationForm = ({ setApplications }) => {
 
           {/* Documents */}
           <fieldset className="p-4 border border-black rounded-md">
-            <legend className="px-2 font-semibold">Documents</legend>
+            <legend className="px-2 font-semibold">
+              Documents (Size &lt; 200kb )
+            </legend>
             <div className="space-y-4">
               <div className="form-group">
                 <label
