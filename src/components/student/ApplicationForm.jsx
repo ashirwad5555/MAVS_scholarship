@@ -53,6 +53,8 @@ const ApplicationForm = ({ setApplications }) => {
 
   const [formData, setFormData] = useState({
     fullName: "",
+    email_ID: "", //added on demand
+    mobile_no: "", //added on demand
     fathersName: "",
     mothersName: "",
     birthDate: "",
@@ -60,14 +62,18 @@ const ApplicationForm = ({ setApplications }) => {
     fathersOccupation: "",
     fathersIncome: "",
     communicationAddress: "",
+    tenthMarks: "", //added on demand
     twelfthMarks: "",
     firstYearMarks: "",
     secondYearMarks: "",
     thirdYearMarks: "",
     lastYearMarks: "",
+    entrance_exam: "", //added on demand
+    Entrance_exam_rank_or_marks: "", //added on demand
     collegeName: "",
     feesReceipt: null,
     beneficiaryDetails: "",
+    Other_Scholarships: "", //added on demand
     aadharCard: null,
     rationCard: null,
     marksheets: null,
@@ -649,6 +655,37 @@ const ApplicationForm = ({ setApplications }) => {
                   onChange={handleChange}
                 />
               </div>
+
+              {/* added on demand */}
+              <div className="form-group">
+                <label htmlFor="email_ID" className="block font-semibold mb-1">
+                  Your Email ID:
+                </label>
+                <input
+                  type="text"
+                  id="email_ID"
+                  name="email_ID"
+                  className="w-full p-2 border rounded-md"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* added on demand */}
+              <div className="form-group">
+                <label htmlFor="mobile_no" className="block font-semibold mb-1">
+                  Contact number (should be currently active) :
+                </label>
+                <input
+                  type="text"
+                  id="mobile_no"
+                  name="mobile_no"
+                  className="w-full p-2 border rounded-md"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
               <div className="form-group">
                 <label
                   htmlFor="fathersName"
@@ -732,7 +769,7 @@ const ApplicationForm = ({ setApplications }) => {
                   htmlFor="fathersIncome"
                   className="block font-semibold mb-1"
                 >
-                  Father’s Annual Income:
+                  Total family Income:
                 </label>
                 <input
                   type="number"
@@ -765,6 +802,22 @@ const ApplicationForm = ({ setApplications }) => {
           <fieldset className="p-4 border border-black rounded-md">
             <legend className="px-2 font-semibold">Education Details</legend>
             <div className="space-y-4">
+              {/* 10th marks added on demand */}
+              <div className="form-group">
+                <label htmlFor="10thMarks" className="block font-semibold mb-1">
+                  10th: Total Marks (In ...% - only Integer value) "Enter 0 if
+                  not available"
+                </label>
+                <input
+                  type="text"
+                  id="tenthMarks"
+                  name="tenthMarks"
+                  className="w-full p-2 border rounded-md"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
               <div className="form-group">
                 <label htmlFor="12thMarks" className="block font-semibold mb-1">
                   12th: Total Marks (In ...% - only Integer value) "Enter 0 if
@@ -843,6 +896,43 @@ const ApplicationForm = ({ setApplications }) => {
                   onChange={handleChange}
                 />
               </div>
+
+              {/* entrance exam name added on demand */}
+              <div className="form-group">
+                <label
+                  htmlFor="entrance_exam"
+                  className="block font-semibold mb-1"
+                >
+                  Name of Entrance Exam you given:
+                </label>
+                <input
+                  type="text"
+                  id="entrance_exam"
+                  name="entrance_exam"
+                  className="w-full p-2 border rounded-md"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* added on demand */}
+              <div className="form-group">
+                <label
+                  htmlFor="Entrance_exam_rank_or_marks"
+                  className="block font-semibold mb-1"
+                >
+                  Your rank / %le / marks in your Entrance Exam:
+                </label>
+                <input
+                  type="text"
+                  id="Entrance_exam_rank_or_marks"
+                  name="Entrance_exam_rank_or_marks"
+                  className="w-full p-2 border rounded-md"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+
               <div className="form-group">
                 <label
                   htmlFor="collegeName"
@@ -872,11 +962,29 @@ const ApplicationForm = ({ setApplications }) => {
                 htmlFor="beneficiaryDetails"
                 className="block font-semibold mb-1"
               >
-                Enter details if you have. (Enter "none" if not available)
+                Enter details if you have. (Enter "None" if not available)
               </label>
               <textarea
                 id="beneficiaryDetails"
                 name="beneficiaryDetails"
+                className="w-full p-2 border rounded-md"
+                required
+                onChange={handleChange}
+              ></textarea>
+            </div>
+
+            {/* added on demand */}
+            <div className="form-group">
+              <label
+                htmlFor="Other_Scholarships"
+                className="block font-semibold mb-1"
+              >
+                Have you got any other scholarship ? (mention if any otherwise
+                write "None")
+              </label>
+              <textarea
+                id="Other_Scholarships"
+                name="Other_Scholarships"
                 className="w-full p-2 border rounded-md"
                 required
                 onChange={handleChange}

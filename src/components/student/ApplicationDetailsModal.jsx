@@ -8,6 +8,8 @@ function ApplicationDetailsModal({ onClose, application }) {
   // Define the fields to display
   const fieldsToDisplay = [
     "fullName",
+    "email_ID", //added on demand
+    "mobile_no", //added on demand
     "fathersName",
     "mothersName",
     "birthDate",
@@ -15,14 +17,18 @@ function ApplicationDetailsModal({ onClose, application }) {
     "fathersOccupation",
     "fathersIncome",
     "communicationAddress",
+    "tenthMarks", //added on demand
     "twelfthMarks",
     "firstYearMarks",
     "secondYearMarks",
     "thirdYearMarks",
     "lastYearMarks",
+    "entrance_exam", //added on demand
+    "Entrance_exam_rank_or_marks", //added on demand
     "collegeName",
     "feesReceipt",
     "beneficiaryDetails",
+    "Other_Scholarships", //added on demand
     "aadharCard",
     "rationCard",
     "marksheets",
