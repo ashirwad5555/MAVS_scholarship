@@ -7,7 +7,7 @@ function ContactUs() {
         <div className="mt-12 text-center">
           <h2 className="text-3xl font-bold text-gray-800">Get in Touch</h2>
           <p className="text-lg text-gray-600 mt-4">
-            You can reach us via email or phone and WhatsApp
+            You can reach us via email and WhatsApp
           </p>
           <div className="flex flex-col md:flex-row justify-center items-center mt-8 space-y-4 md:space-y-0 md:space-x-8">
             <div>
@@ -20,12 +20,7 @@ function ContactUs() {
                 </a>
               </p>
             </div>
-            <div>
-              <h3 className="text-2xl font-semibold text-gray-700">Call Us:</h3>
-              <p className="text-lg text-blue-600 mt-2">
-                <a href="tel:+1234567890">+91 9850996369</a>
-              </p>
-            </div>
+            
             <div>
               <a
                 target="_blank"
