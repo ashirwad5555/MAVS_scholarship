@@ -904,7 +904,7 @@ const ApplicationForm = ({ setApplications }) => {
                   className="block font-semibold mb-1"
                 >
                   Name of Entrance Exam you given: (along with the Date of
-                  appearing for Exam - DD/MM/YYYY ) eg. MHT-CET march 2024
+                  appearing for Exam - DD/MM/YYYY ) eg. MHT-CET - 06/08/2024
                 </label>
                 <input
                   type="text"

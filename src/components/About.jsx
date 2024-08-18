@@ -8,7 +8,7 @@ function About() {
           About Maharashtra Arya Vaishya Samaj, Pune
         </h1>
 
-        <div className="bg-white p-8 mx-12 rounded-lg shadow-lg mb-12 flex flex-wrap items-center">
+        <div className="bg-blue-200 p-8 mx-12 rounded-lg shadow-lg mb-12 flex flex-wrap items-center">
           <div className="w-full md:w-1/2">
             <h2 className="text-3xl font-semibold mb-4">
               Our Vision & Mission
@@ -33,7 +33,7 @@ function About() {
           </div>
         </div>
 
-        <div className="bg-white p-8 mx-12 rounded-lg shadow-lg mb-12 flex flex-wrap items-center">
+        <div className="bg-green-50 p-8 mx-12 rounded-lg shadow-lg mb-12 flex flex-wrap items-center">
           <div className="w-full md:w-1/2 flex justify-center order-2 md:order-1">
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQchTE3V57g5-V7qy2XwK8EcKy_hpryvNZLSg&s"
@@ -127,7 +127,7 @@ function About() {
           </div>
         </div> */}
 
-        <div className="bg-white p-8 mx-12 rounded-lg shadow-lg">
+        <div className="bg-blue-200 p-8 mx-12 rounded-lg shadow-lg">
           <h2 className="text-3xl font-semibold mb-4">Our Story</h2>
           <p className="text-gray-700 text-lg">
             With this objective in mind,{" "}
