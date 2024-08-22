@@ -4,8 +4,8 @@ const InstructionsPopup = ({ show, onClose }) => {
   if (!show) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
+    <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-50">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-lg z-60">
         <h3 className="text-2xl font-bold mb-4">General Instructions</h3>
         <ul className="list-disc list-inside text-left mb-6">
           <li>
