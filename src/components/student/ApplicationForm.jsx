@@ -1110,9 +1110,19 @@ const ApplicationForm = ({ setApplications }) => {
             disabled={isSubmitting} //added while testing
             className="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
           >
-            {isSubmitting ? "wait...." : "Submit"}
+            {isSubmitting ? "Submitting...." : "Submit"}
           </button>
         </form>
+
+        {/* added later on demand */}
+        {isSubmitting ? (
+          <div className="text-red-500 text-lg">
+            Do not refresh or exit the window/tab untill "Success" popup comes.
+            Otherwise form will not be submitted
+          </div>
+        ) : (
+          ""
+        )}
         {showPopup && (
           <Popup
             message="Application submitted successfully!"

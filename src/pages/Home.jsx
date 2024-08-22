@@ -6,8 +6,12 @@ import { Benificeries } from "../components/index";
 import { useSelector } from "react-redux";
 import authService from "../appwrite/auth";
 
+//added on demand
+import InstructionsPopup from "../components/InstructionsPopup";
+
 function Home() {
   const [posts, setPosts] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
   const authStatus = useSelector((state) => state.auth.status);
 
   useEffect(() => {
@@ -17,6 +21,14 @@ function Home() {
       }
     });
   }, []);
+
+  const handlePopupOpen = () => {
+    setShowPopup(true);
+  };
+
+  const handlePopupClose = () => {
+    setShowPopup(false);
+  };
 
   // if (posts.length === 0)
   {
@@ -36,6 +48,14 @@ function Home() {
                 Education is part of the foundation of all progress and growth,
                 both as an individual and as a society.
               </p>
+
+              {/* added on demand General Instructions Button */}
+              <button
+                onClick={handlePopupOpen}
+                className="cta-button inline-block bg-green-500 text-white font-semibold my-4 py-2 px-4 rounded-lg shadow-lg hover:bg-green-600 transition duration-300 mx-2"
+              >
+                General Instructions
+              </button>
               <Link
                 to={authStatus ? "/add-post" : "/login"}
                 className="cta-button inline-block bg-blue-500 text-white font-semibold my-4 py-2 px-4 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300"
@@ -54,6 +74,8 @@ function Home() {
         </div>
 
         {/* <Benificeries />  //removed on demand */}
+        {/* added on demand Popup Component */}
+        <InstructionsPopup show={showPopup} onClose={handlePopupClose} />
       </>
     );
   }
