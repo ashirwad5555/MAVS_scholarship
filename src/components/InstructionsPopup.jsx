@@ -9,12 +9,16 @@ const InstructionsPopup = ({ show, onClose }) => {
         <h3 className="text-2xl font-bold mb-4">General Instructions</h3>
         <ul className="list-disc list-inside text-left mb-6">
           <li>
+            Ensure the stable internet connectivity to avoid any inconvenience.
+          </li>
+          <li>
             Please read the application form carefully while filling your
             details.
           </li>
           <li>
             Please be ready with a sigle .pdf file containing 10th , 12th /
-            diploma , Entrance Exams marklists.{" "}
+            diploma and Entrance Exams marklists to be uploaded while filling
+            the form.
           </li>
           <li>
             Please make sure that the size of all uploading files should be less
