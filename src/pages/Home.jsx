@@ -72,6 +72,13 @@ function Home() {
             />
           </div>
         </div>
+         
+         {/* added later for public awareness */}
+        <div>
+          <p className=" text-gray-600">
+            &copy; Developed by Ashirwad Katkamwar. All Rights Reserved by MAVS.
+          </p>
+        </div>
 
         {/* <Benificeries />  //removed on demand */}
         {/* added on demand Popup Component */}
