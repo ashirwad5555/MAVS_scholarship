@@ -6,6 +6,7 @@ import { v4 } from "uuid";
 import { ID } from "appwrite";
 import { useNavigate } from "react-router-dom";
 import Popup from "../Popup";
+import Loader from "../Loader";
 
 const ApplicationForm = ({ setApplications }) => {
   const [activePage, setActivePage] = useState("newApplication");
@@ -611,7 +612,7 @@ const ApplicationForm = ({ setApplications }) => {
             <li className="mb-2">
               <button
                 onClick={() => setActivePage("pastApplications")}
-                className="w-full text-left p-2 hover:bg-gray-200 rounded-lg"
+                className="w-full text-gray-400 text-left p-2  rounded-lg"
               >
                 My Past Applications
               </button>
@@ -619,7 +620,7 @@ const ApplicationForm = ({ setApplications }) => {
             <li className="mb-2">
               <button
                 onClick={() => setActivePage("fundsReceived")}
-                className="w-full text-left p-2 hover:bg-gray-200 rounded-lg"
+                className="w-full text-gray-400 text-left p-2  rounded-lg"
               >
                 Funds Received
               </button>
@@ -1110,7 +1111,14 @@ const ApplicationForm = ({ setApplications }) => {
             disabled={isSubmitting} //added while testing
             className="w-full py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
           >
-            {isSubmitting ? "Submitting...." : "Submit"}
+            {isSubmitting ? (
+              <>
+                <Loader /> {/* added on demand Small loader */}
+                <span className="ml-2">Submitting...</span>
+              </>
+            ) : (
+              "Submit"
+            )}
           </button>
         </form>
 
