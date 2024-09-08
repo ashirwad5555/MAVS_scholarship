@@ -496,7 +496,7 @@ const ApplicationForm = ({ setApplications }) => {
         //   );
         // }
         // ... add promises for other file uploads
-        await Promise.allSettled(promises);
+        await Promise.all(promises);
       }; // Function scope ends here
 
       await fileUploads();
