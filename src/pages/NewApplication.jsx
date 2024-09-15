@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ApplicationForm } from "../components/index";
 import PastApplications from "../components/student/PastApplications";
 import FundsReceived from "../components/student/FundsReceived";
+import MessageBox from "../components/MessageBox";
 
 function NewApplication() {
   return (
@@ -14,7 +15,8 @@ function NewApplication() {
     //   </Routes>
 
     // </BrowserRouter>
-       <ApplicationForm /> 
+    // <ApplicationForm /> //stopped accepting new forms after deadline
+    <MessageBox />
   );
 }
 
