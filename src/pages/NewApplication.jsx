@@ -15,8 +15,8 @@ function NewApplication() {
     //   </Routes>
 
     // </BrowserRouter>
-    // <ApplicationForm /> //stopped accepting new forms after deadline
-    <MessageBox />
+    <ApplicationForm /> //stopped accepting new forms after deadline
+    // <MessageBox />  //when applications date closed
   );
 }
 
